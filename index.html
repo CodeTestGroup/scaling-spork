@@ -3,39 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UUID Redirect</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 20px;
-    }
-  </style>
+  <title>Random Number Redirect</title>
 </head>
 <body>
 
-  <h1>UUID Redirect</h1>
+<button onclick="redirectToRandomNumber()">Generate Random Number</button>
 
-  <button onclick="redirectToUUID()">Generate and Redirect</button>
+<script>
+  // Function to generate a random number
+  function generateRandomNumber() {
+    return Math.floor(Math.random() * 1000); // Adjust the range as needed
+  }
 
-  <script>
-    function generateUUID() {
-      // Function to generate a UUID
-      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = Math.random() * 16 | 0,
-          v = c === 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
-      });
-    }
-
-    function redirectToUUID() {
-      // Generate a UUID
-      const generatedUUID = generateUUID();
-
-      // Redirect to the specified URL with the generated UUID
-      window.location.href = `hub.html?$uuid=${generatedUUID}`;
-    }
-  </script>
+  // Function to redirect to hub.html with a random number
+  function redirectToRandomNumber() {
+    var randomNumber = generateRandomNumber();
+    window.location.href = `hub.html?$num=${randomNumber}`;
+  }
+</script>
 
 </body>
 </html>
