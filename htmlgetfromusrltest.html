@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UUID Redirect</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>UUID Redirect</h1>
+
+  <button onclick="redirectToUUID()">Generate and Redirect</button>
+
+  <script>
+    function generateUUID() {
+      // Function to generate a UUID
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0,
+          v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    }
+
+    function redirectToUUID() {
+      // Generate a UUID
+      const generatedUUID = generateUUID();
+
+      // Redirect to the specified URL with the generated UUID
+      window.location.href = `redir.html/$uuid=${generatedUUID}`;
+    }
+  </script>
+
+</body>
+</html>
