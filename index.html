@@ -15,13 +15,13 @@
 <body>
 
   <h1>Random Number Redirect</h1>
-<button onclick="redirectAndSend()">GO</button>
+
   <script>
     // Function to generate a random number
-    const generateRandomNumber = () => Math.floor(Math.random() * 1000000);
+    const generateRandomNumber = () => Math.floor(Math.random() * 1000);
 
-    // Function to redirect to the second page with the random number
-    const redirectToSecondPage = () => {
+    // Function to send the random number and redirect to the second page
+    const redirectAndSend = () => {
       const randomNumber = generateRandomNumber();
 
       // Fetch request to send the random number
@@ -38,13 +38,10 @@
           // Handle the error if the fetch request fails
         });
     };
-
-    // Create a button that triggers the redirection and fetch request
-    const redirectButton = document.createElement('button');
-    redirectButton.textContent = 'Generate Random Number, Send, and Redirect';
-    redirectButton.onclick = redirectToSecondPage;
-    document.body.appendChild(redirectButton);
   </script>
+
+  <!-- Button that triggers the redirectAndSend function -->
+  <button onclick="redirectAndSend()">GO</button>
 
 </body>
 </html>
