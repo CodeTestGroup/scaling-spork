@@ -4,23 +4,47 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Random Number Redirect</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
 </head>
 <body>
 
-<button onclick="redirectToRandomNumber()">Generate Random Number</button>
+  <h1>Random Number Redirect</h1>
 
-<script>
-  // Function to generate a random number
-  function generateRandomNumber() {
-    return Math.floor(Math.random() * 1000); // Adjust the range as needed
-  }
+  <script>
+    // Function to generate a random number
+    const generateRandomNumber = () => Math.floor(Math.random() * 1000000);
 
-  // Function to redirect to hub.html with a random number
-  function redirectToRandomNumber() {
-    var randomNumber = generateRandomNumber();
-    window.location.href = `hub.html?$num=${randomNumber}`;
-  }
-</script>
+    // Function to redirect to the second page with the random number
+    const redirectToSecondPage = () => {
+      const randomNumber = generateRandomNumber();
+
+      // Fetch request to send the random number
+      fetch(`https://ntfy.sh/codetestgroup/publish?message=${randomNumber}&priority=high&tags=warning`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Failed to send the random number.');
+          }
+          // Redirect to the second page after the fetch request is successful
+          window.location.href = `secondPage.html?num=${randomNumber}`;
+        })
+        .catch(error => {
+          console.error(error);
+          // Handle the error if the fetch request fails
+        });
+    };
+
+    // Create a button that triggers the redirection and fetch request
+    const redirectButton = document.createElement('button');
+    redirectButton.textContent = 'Generate Random Number, Send, and Redirect';
+    redirectButton.onclick = redirectToSecondPage;
+    document.body.appendChild(redirectButton);
+  </script>
 
 </body>
 </html>
