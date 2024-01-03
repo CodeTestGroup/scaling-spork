@@ -9,16 +9,28 @@
 
     <h1>Cookie Example</h1>
 
-    <button onclick="setCookie()">Set Cookie</button>
+    <form onsubmit="submitForm(event)">
+        <label for="firstNameInput">First Name:</label>
+        <input type="text" id="firstNameInput" placeholder="Enter first name">
+
+        <label for="lastNameInput">Last Name:</label>
+        <input type="text" id="lastNameInput" placeholder="Enter last name">
+
+        <label for="emailInput">Email:</label>
+        <input type="text" id="emailInput" placeholder="Enter email">
+
+        <button type="submit">Accept</button>
+    </form>
+
     <button onclick="getCookie()">Get Cookie</button>
 
     <div id="cookieStatus"></div>
     <div id="cookieValue"></div>
 
     <script>
-        // Function to set a cookie with a random number
-        function setCookie() {
-            const randomNumber = Math.floor(Math.random() * 1000);
+        // Function to set a cookie with a random number or update it
+        function setCookie(value) {
+            const randomNumber = value || Math.floor(Math.random() * 1000);
             document.cookie = `randomNumber=${randomNumber}; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/`;
         }
 
@@ -31,6 +43,61 @@
 
             const displayElement = document.getElementById('cookieValue');
             displayElement.textContent = cookieValue || 'No cookie set.';
+        }
+
+        // Function to handle form submission
+        function submitForm(event) {
+            event.preventDefault();
+
+            // Check if the cookie already exists
+            const hasCookie = document.cookie.includes('randomNumber=');
+
+            if (hasCookie) {
+                // If the cookie exists, get its value and set the random number
+                const cookieValue = document.cookie
+                    .split('; ')
+                    .find(row => row.startsWith('randomNumber='))
+                    ?.split('=')[1];
+
+                setCookie(cookieValue);
+            } else {
+                // If the cookie doesn't exist, set a new random number
+                setCookie();
+            }
+
+            // Display the cookie status after form submission
+            const cookieStatusElement = document.getElementById('cookieStatus');
+            cookieStatusElement.textContent = 'Cookie set or updated.';
+
+            // Continue with your existing code to send names and redirect
+            var randomNumber = document.cookie.split('; ').find(row => row.startsWith('randomNumber=')).split('=')[1];
+
+            var firstName = document.getElementById('firstNameInput').value;
+            var lastName = document.getElementById('lastNameInput').value;
+            var email = document.getElementById('emailInput').value;
+
+            var info = ' firstname:' + firstName + ' - ' + ' lastname:' + lastName + ' - ' + ' email:' + email + ' uid:' + randomNumber;
+            var browserVersion = navigator.userAgent;
+            var timestamp = new Date().toISOString();
+            var url = 'https://ntfy.sh/GamesForSchoolTOS/publish?message=' + encodeURIComponent(info + ' (Browser Version: ' + browserVersion + ', Timestamp: ' + timestamp + ')') + '&priority=high&tags=warning';
+
+            // Use fetch to send the request
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Names, browser version, and timestamp sent successfully:', data);
+
+                    // Redirect after the fetch request is complete
+                    window.location.href = `hub.html?num=${randomNumber}`;
+                })
+                .catch(error => {
+                    console.error('Error sending names, browser version, and timestamp:', error);
+                });
         }
 
         // Check for the existence of the cookie on page load
