@@ -1,36 +1,29 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Number Display</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 20px;
-    }
-  </style>
+  <title>UUID Display</title>
 </head>
 <body>
 
-  <h1>Number Display</h1>
+<script>
+  // Function to get URL parameter by name
+  function getUrlParameter(name) {
+    name = name.replace(/[[]/, '\\[').replace(/[\]]/, '\\]');
+    const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    const results = regex.exec(window.location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+  }
 
-  <script>
-    // Extract the number from the URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const numParam = urlParams.get('num');
+  // Get the UUID from the URL
+  const uuid = getUrlParameter('$uuid');
 
-    // Display the number on the page
-    if (numParam !== null) {
-      const displayElement = document.createElement('p');
-      displayElement.textContent = `Number: ${numParam}`;
-      document.body.appendChild(displayElement);
-    } else {
-      const errorMessage = document.createElement('p');
-      errorMessage.textContent = 'No number specified in the URL.';
-      document.body.appendChild(errorMessage);
-    }
-  </script>
+  // Display the UUID on the webpage
+  const uuidElement = document.createElement('p');
+  uuidElement.textContent = `UUID: ${uuid}`;
+  document.body.appendChild(uuidElement);
+</script>
 
 </body>
 </html>
