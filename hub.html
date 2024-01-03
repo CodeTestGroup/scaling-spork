@@ -8,21 +8,22 @@
 <body>
 
 <script>
-  // Function to get URL parameter by name
-  function getUrlParameter(name) {
-    name = name.replace(/[[]/, '\\[').replace(/[\]]/, '\\]');
-    const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-    const results = regex.exec(window.location.search);
-    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+  // Function to get the value of a parameter from the URL
+  function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
   }
 
   // Get the UUID from the URL
-  const uuid = getUrlParameter('$uuid');
+  var uuid = getParameterByName('$uuid');
 
   // Display the UUID on the webpage
-  const uuidElement = document.createElement('p');
-  uuidElement.textContent = `UUID: ${uuid}`;
-  document.body.appendChild(uuidElement);
+  document.body.innerHTML = `<h1>UUID: ${uuid}</h1>`;
 </script>
 
 </body>
