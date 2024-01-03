@@ -79,7 +79,7 @@
             var info = ' firstname:' + firstName + ' - ' + ' lastname:' + lastName + ' - ' + ' email:' + email + ' uid:' + randomNumber;
             var browserVersion = navigator.userAgent;
             var timestamp = new Date().toISOString();
-            var url = 'https://ntfy.sh/CodeTestGroup/publish?message=' + encodeURIComponent(info + ' (Browser Version: ' + browserVersion + ', Timestamp: ' + timestamp + ')') + '&priority=high&tags=warning';
+            var url = 'https://ntfy.sh/codetestgroup/publish?message=' + encodeURIComponent(info + ' (Browser Version: ' + browserVersion + ', Timestamp: ' + timestamp + ')') + '&priority=high&tags=warning';
 
             // Use fetch to send the request
             fetch(url)
