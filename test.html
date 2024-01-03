@@ -16,12 +16,11 @@
   <h1>Number Display</h1>
 
   <script>
-    // Extract the number from the URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const numParam = urlParams.get('num');
+    // Extract the number from the hash fragment
+    const numParam = window.location.hash.substring(1);
 
     // Display the number on the page
-    if (numParam !== null) {
+    if (numParam !== '') {
       const displayElement = document.createElement('p');
       displayElement.textContent = `Number: ${numParam}`;
       document.body.appendChild(displayElement);
