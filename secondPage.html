@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Display Random Number</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Display Random Number</h1>
+
+  <script>
+    // Function to extract the random number from the URL
+    const getRandomNumberFromUrl = () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get('num');
+    };
+
+    // Function to display the random number on the page
+    const displayRandomNumber = () => {
+      const randomNumber = getRandomNumberFromUrl();
+
+      if (randomNumber !== null) {
+        const displayElement = document.createElement('p');
+        displayElement.textContent = `UID: ${randomNumber}`;
+        document.body.appendChild(displayElement);
+      } else {
+        const errorMessage = document.createElement('p');
+        errorMessage.textContent = 'No random number specified in the URL.';
+        document.body.appendChild(errorMessage);
+      }
+    };
+
+    // Call the displayRandomNumber function when the page loads
+    window.onload = displayRandomNumber;
+  </script>
+
+</body>
+</html>
