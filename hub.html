@@ -3,28 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UUID Display</title>
+  <title>Number Display</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
 </head>
 <body>
 
-<script>
-  // Function to get the value of a parameter from the URL
-  function getParameterByName(name, url) {
-    if (!url) url = window.location.href;
-    name = name.replace(/[\[\]]/g, "\\$&");
-    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
-  }
+  <h1>Number Display</h1>
 
-  // Get the UUID from the URL
-  var uuid = getParameterByName('uuid');
+  <script>
+    // Extract the number from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const numParam = urlParams.get('num');
 
-  // Display the UUID on the webpage
-  document.body.innerHTML = `<h1>UUID: ${uuid}</h1>`;
-</script>
+    // Display the number on the page
+    if (numParam !== null) {
+      const displayElement = document.createElement('p');
+      displayElement.textContent = `Number: ${numParam}`;
+      document.body.appendChild(displayElement);
+    } else {
+      const errorMessage = document.createElement('p');
+      errorMessage.textContent = 'No number specified in the URL.';
+      document.body.appendChild(errorMessage);
+    }
+  </script>
 
 </body>
 </html>
