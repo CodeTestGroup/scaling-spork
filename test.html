@@ -1,0 +1,36 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Number Display</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Number Display</h1>
+
+  <script>
+    // Extract the number from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const numParam = urlParams.get('num');
+
+    // Display the number on the page
+    if (numParam !== null) {
+      const displayElement = document.createElement('p');
+      displayElement.textContent = `Number: ${numParam}`;
+      document.body.appendChild(displayElement);
+    } else {
+      const errorMessage = document.createElement('p');
+      errorMessage.textContent = 'No number specified in the URL.';
+      document.body.appendChild(errorMessage);
+    }
+  </script>
+
+</body>
+</html>
